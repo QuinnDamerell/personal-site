@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Quinn – Senior Software Engineer</title>
+  <title>Quinn Damerell</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Font -->
@@ -50,13 +50,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
     }
 
     /* Glass / acrylic card */
     .card {
       max-width: 560px;
-      width: 92%;
+      width: 100%;
+      margin: 1rem;
       padding: 3rem 2.25rem;
       backdrop-filter: blur(24px) saturate(160%);
       background: var(--glass-bg);
@@ -103,6 +103,30 @@
     .social a:hover {
       color: #ffffff;
     }
+
+    @media (max-width: 560px) {
+      .card {
+        padding: 2rem 1rem;
+      }
+      .role {
+        font-size: 1rem;
+      }
+      .founder {
+          font-size: 1rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .role {
+        font-size: .95rem;
+      }
+      .founder {
+          font-size: .95rem;
+      }
+      .social {
+          font-size: .95rem;
+
+      }
+    }
   </style>
 </head>
 
@@ -113,14 +137,14 @@
   <main class="main">
     <section class="card">
       <h1 class="name">Quinn Damerell</h1>
-      <p class="motto">we've got magic to do</p>
+      <p class="motto">We've got magic to do.</p>
       <p class="role">Senior Software Engineer @ Microsoft</p>
-      <p class="founder">Foudner of OctoEverywhre and Homeway</p>
+      <p class="founder">Founder of OctoEverywhere and Homeway</p>
 
       <div class="social">
-        <a href="mailto:hello@quinn.space" aria-label="Email">Email</a>
-        <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://bsky.app/profile/quinninator.bsky.social" aria-label="Bluesky">Bluesky</a>
+        <a href="https://github.com/QuinnDamerell" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/quinndamerell" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
       </div>
     </section>
   </main>
@@ -139,12 +163,16 @@
     }
 
     /** Create initial star set & kick off loop */
-    function init() {
+    function init(isResize = false) {
       resize();
       // ~one star per 6k px², up to 800
       const count = Math.min(800, Math.floor((width * height) / 6000));
       stars = Array.from({ length: count }, createStar);
-      animate();
+      // Only animate if not resizing, so we don't get more than one requestAnimationFrame callback.
+      if(!isResize)
+      {
+        animate();
+      }
     }
 
     /** Star factory */
@@ -168,12 +196,12 @@
       ctx.fillRect(0, 0, width, height);
 
       // Big radial gradient (galaxy core)
-      const cx = width * 0.6;
-      const cy = height * 0.4;
+      const cx = width * 0.7;
+      const cy = height * 0.43;
       const maxR = Math.min(width, height) * 0.8;
       const g1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-      g1.addColorStop(0, "rgba(255,255,255,0.25)");
-      g1.addColorStop(0.2, "rgba(138,180,255,0.15)");
+      g1.addColorStop(0, "rgba(0,0,0,0.00)");
+      g1.addColorStop(0.15, "rgba(141,138,255,0.35)");
       g1.addColorStop(0.45, "rgba(100,0,255,0.07)");
       g1.addColorStop(1, "rgba(0,0,20,0)");
       ctx.fillStyle = g1;
@@ -218,8 +246,7 @@
 
     // Handle viewport resize
     window.addEventListener("resize", () => {
-      resize();
-      init();
+      init(true);
     });
 
     // Bootstrap
