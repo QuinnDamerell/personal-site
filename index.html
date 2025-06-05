@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quinn – Senior Software Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --accent: #8ab4ff;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: "Inter", sans-serif;
+      color: #ffffff;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* === Starfield Canvas === */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* === Main layout === */
+    .main {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Glass / acrylic card */
+    .card {
+      max-width: 560px;
+      width: 92%;
+      padding: 3rem 2.25rem;
+      backdrop-filter: blur(24px) saturate(160%);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Typography tweaks */
+    .name {
+      font-size: 2.6rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .motto {
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+    }
+    .role {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .founder {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    /* Social links */
+    .social {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .social a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.2s ease;
+    }
+    .social a:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Starfield Background Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <main class="main">
+    <section class="card">
+      <h1 class="name">Quinn Damerell</h1>
+      <p class="motto">we've got magic to do</p>
+      <p class="role">Senior Software Engineer @ Microsoft</p>
+      <p class="founder">Foudner of OctoEverywhre and Homeway</p>
+
+      <div class="social">
+        <a href="mailto:hello@quinn.space" aria-label="Email">Email</a>
+        <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- === Starfield + Galaxy Script === -->
+  <script>
+    const canvas = document.getElementById("starfield");
+    const ctx = canvas.getContext("2d");
+
+    let width, height, stars;
+
+    /** Resize canvas to full‑viewport */
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    /** Create initial star set & kick off loop */
+    function init() {
+      resize();
+      // ~one star per 6k px², up to 800
+      const count = Math.min(800, Math.floor((width * height) / 6000));
+      stars = Array.from({ length: count }, createStar);
+      animate();
+    }
+
+    /** Star factory */
+    function createStar() {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.5 + 0.3,
+        speed: Math.random() * 0.08 + 0.02, // 0.02 – 0.10 (slower)
+        alpha: Math.random() * 0.7 + 0.25,
+        flicker: Math.random() * 0.004 + 0.001,
+        hue: Math.random() * 60 + 180,      // 180 – 240 (blue‑purple)
+        hueShift: (Math.random() - 0.5) * 0.05 // subtle hue drift
+      };
+    }
+
+    /** Draw a soft galaxy gradient behind stars */
+    function drawGalaxy() {
+      // Clear
+      ctx.fillStyle = "rgba(0,0,0,1)";
+      ctx.fillRect(0, 0, width, height);
+
+      // Big radial gradient (galaxy core)
+      const cx = width * 0.6;
+      const cy = height * 0.4;
+      const maxR = Math.min(width, height) * 0.8;
+      const g1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+      g1.addColorStop(0, "rgba(255,255,255,0.25)");
+      g1.addColorStop(0.2, "rgba(138,180,255,0.15)");
+      g1.addColorStop(0.45, "rgba(100,0,255,0.07)");
+      g1.addColorStop(1, "rgba(0,0,20,0)");
+      ctx.fillStyle = g1;
+      ctx.globalCompositeOperation = "lighter";
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    /** Draw individual star */
+    function drawStar(s) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, 80%, 85%, ${s.alpha})`;
+      ctx.fill();
+    }
+
+    /** Update star position & appearance */
+    function updateStar(s) {
+      s.y -= s.speed;
+      if (s.y < -s.radius) {
+        s.y = height + s.radius;
+        s.x = Math.random() * width;
+      }
+      // Flicker
+      s.alpha += (Math.random() - 0.5) * s.flicker;
+      s.alpha = Math.max(0.15, Math.min(1, s.alpha));
+      // Gentle hue drift
+      s.hue += s.hueShift;
+      if (s.hue < 0) s.hue += 360;
+      if (s.hue > 360) s.hue -= 360;
+    }
+
+    /** Animation loop */
+    function animate() {
+      drawGalaxy();
+      for (const s of stars) {
+        updateStar(s);
+        drawStar(s);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // Handle viewport resize
+    window.addEventListener("resize", () => {
+      resize();
+      init();
+    });
+
+    // Bootstrap
+    init();
+  </script>
+</body>
+</html>
