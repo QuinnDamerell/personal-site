@@ -71,7 +71,7 @@
 
     /* Social links */
     /* We use space-between and the max width to ensure nice spacing on mobile */
-    .social { display: flex; flex-wrap: wrap; margin-bottom: 7px; justify-content: space-between; max-width: 387px; margin-right:3px; }
+    .social { display: flex; flex-wrap: wrap; margin-bottom: 7px; justify-content: space-between; max-width: 387px; margin-right:5px; }
     .social a {
       color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
     }
@@ -89,7 +89,6 @@
     .interviews a {
       color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
     }
-
 
     /* Close button */
     .close-btn {
@@ -126,7 +125,7 @@
     @supports (-webkit-touch-callout: none) {
       #aboutCard {
         /* The hack for Safari */
-        max-height: calc(-webkit-fill-available - 2rem);
+        max-height: -webkit-fill-available;
       }
     }
 
