@@ -50,6 +50,7 @@
       opacity: 1; filter: blur(0); transform-origin: center;
     }
 
+
     /* Fade + blur keyframes */
     @keyframes fadeOutBlur {
       0%   { opacity: 1; filter: blur(0px);   transform: scale(1); }
@@ -105,7 +106,7 @@
       background: transparent;
     }
     #aboutCard::-webkit-scrollbar-thumb {
-      background: var(--accent);
+      background: #435e89;
       border-radius: 4px;
     }
     #aboutCard::-webkit-scrollbar-thumb:hover {
@@ -116,9 +117,16 @@
         /* This allows the card to stay the height of the content, but still scroll when the view port is too small */
         max-height: calc(100vh - 2rem);
         scrollbar-width: thin;
-        scrollbar-color: var(--accent) transparent;
+        scrollbar-color: #435e89 transparent;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+    }
+    /* Fix for safari to make 100vh not go behind the elements. */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        /* The hack for Safari */
+        max-height: calc(-webkit-fill-available - 2rem);
+      }
     }
 
     /* Responsive tweaks */
