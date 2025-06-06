@@ -3,6 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <title>Quinn Damerell</title>
+  <meta name="description" content="We've got magic to do. The official home page of Quinn Damerell" />
+  <meta name="author" content="Quinn Damerell" />
+  <meta property="og:title" content="Quinn Damerell" />
+  <meta property="og:description" content="We've got magic to do." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quinn.space" />
+  <meta property="og:site_name" content="Quinn Damerell" />
+  <meta name="theme-color" content="#000000" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Font -->
@@ -17,240 +25,286 @@
       --glass-border: rgba(255, 255, 255, 0.25);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html,
-    body {
-      height: 100%;
-      width: 100%;
-      font-family: "Inter", sans-serif;
-      color: #ffffff;
-      background: #000;
-      overflow: hidden;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%; width: 100%; font-family: "Inter", sans-serif;
+      color: #ffffff; background: #000; overflow: hidden;
     }
 
     /* === Starfield Canvas === */
     #starfield {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
     }
 
     /* === Main layout === */
     .main {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center;
     }
 
-    /* Glass / acrylic card */
+    /* Shared card styles */
     .card {
-      max-width: 560px;
-      width: 100%;
-      margin: 1rem;
-      padding: 3rem 2.25rem;
-      backdrop-filter: blur(24px) saturate(160%);
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+      max-width: 560px; width: 100%; margin: 1rem; padding: 3rem 2.25rem;
+      backdrop-filter: blur(24px) saturate(160%); background: var(--glass-bg);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.5);
+      opacity: 1; filter: blur(0); transform-origin: center;
     }
+
+    /* Fade + blur keyframes */
+    @keyframes fadeOutBlur {
+      0%   { opacity: 1; filter: blur(0px);   transform: scale(1); }
+      100% { opacity: 0; filter: blur(12px);  transform: scale(0.96); }
+    }
+    @keyframes fadeInBlur {
+      0%   { opacity: 0; filter: blur(12px);  transform: scale(1.04); }
+      100% { opacity: 1; filter: blur(0px);   transform: scale(1); }
+    }
+    .fade-out { animation: fadeOutBlur 0.45s cubic-bezier(.4,.0,.2,1) forwards; }
+    .fade-in  { animation: fadeInBlur 0.45s cubic-bezier(.4,.0,.2,1) forwards; }
 
     /* Typography tweaks */
-    .name {
-      font-size: 2.6rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-    .motto {
-      font-size: 1.15rem;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--accent);
-      margin-bottom: 1.4rem;
-    }
-    .role {
-      font-size: 1.25rem;
-      font-weight: 400;
-      margin-bottom: 0.3rem;
-    }
-    .founder {
-      font-size: 1.15rem;
-      margin-bottom: 2rem;
-      line-height: 1.4;
-    }
+    .name      { font-size: 2.6rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .motto     { font-size: 1.15rem; font-style: italic; font-weight: 300; color: var(--accent); margin-bottom: 1.4rem; }
+    .role      { font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; }
+    .founder   { font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.4; }
 
     /* Social links */
-    .social {
-      display: flex;
-      gap: 1.2rem;
-    }
+    .social { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 7px; }
     .social a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 400;
-      transition: color 0.2s ease;
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
     }
-    .social a:hover {
-      color: #ffffff;
+    .social a:hover { color: #ffffff; }
+
+    /* About‑card content */
+    .about-heading { font-size: 2.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .about-text    { font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.4rem; }
+    .about-text a {
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
+    }
+    .interviews    { padding-left: 1rem; margin: 0 0 0 0; }
+    .interviews li { margin-bottom: 0.4rem; }
+    .interviews li span { position: relative; left: -4px;}
+    .interviews a {
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
     }
 
+
+    /* Close button */
+    .close-btn {
+      position: absolute; top: 18px; right: 22px; font-size: 1.8rem; line-height: 1;
+      background: transparent; border: none; color: var(--accent); cursor: pointer; transition: color 0.2s ease;
+    }
+    .close-btn:hover { color: #ffffff; }
+
+    /* Custom scroll‑bar to match the theme */
+    /* Chrome, Edge, Safari */
+    #aboutCard::-webkit-scrollbar {
+      width: 8px;
+    }
+    #aboutCard::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #aboutCard::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+    #aboutCard::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+
+    #aboutCard {
+        /* This allows the card to stay the height of the content, but still scroll when the view port is too small */
+        max-height: calc(100vh - 2rem);
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) transparent;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+    }
+
+    /* Responsive tweaks */
     @media (max-width: 560px) {
-      .card {
-        padding: 2rem 1rem;
-      }
-      .role {
-        font-size: 1rem;
-      }
-      .founder {
-          font-size: 1rem;
-      }
+      .card { padding: 1.2rem 1rem; }
+      .role, .founder { font-size: 1rem; }
     }
-    @media (max-width: 400px) {
-      .role {
-        font-size: .95rem;
-      }
-      .founder {
-          font-size: .95rem;
-      }
-      .social {
-          font-size: .95rem;
+    @media (max-width: 460px) {
+      .role, .founder { font-size: 0.95rem; }
+      .social { font-size: 0.95rem; gap: 0.5rem; }
+    }
 
-      }
-    }
   </style>
 </head>
-
 <body>
   <!-- Starfield Background Canvas -->
   <canvas id="starfield"></canvas>
 
   <main class="main">
-    <section class="card">
+    <!-- ===== Home Card ===== -->
+    <section class="card" id="homeCard">
       <h1 class="name">Quinn Damerell</h1>
       <p class="motto">We've got magic to do.</p>
       <p class="role">Senior Software Engineer @ Microsoft</p>
       <p class="founder">Founder of OctoEverywhere and Homeway</p>
 
       <div class="social">
-        <a href="https://bsky.app/profile/quinninator.bsky.social" aria-label="Bluesky">Bluesky</a>
+        <a href="#" id="aboutLink" aria-label="About Quinn">About&nbsp;Me</a>
+        <a href="https://projects.quinn.space" aria-label="Projects">Projects</a>
+        <a href="https://bsky.app/profile/quinndamerell.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">Bluesky</a>
         <a href="https://github.com/QuinnDamerell" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
         <a href="https://www.linkedin.com/in/quinndamerell" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
       </div>
     </section>
+
+    <!-- ===== About‑Me Card ===== -->
+    <section class="card" id="aboutCard" style="display:none; position:relative;">
+      <button class="close-btn" id="closeAbout" aria-label="Close About Panel">&times;</button>
+      <h2 class="about-heading">About Me</h2>
+
+      <p class="about-text">
+        I'm a software engineer in Seattle, Washington. I'm the Lead Networking Engineer on Microsoft's Forza Motorsport game engine. I love to build <a href="https://projects.quinn.space">software projects</a> that impact communities worldwide in my free time.
+      </p>
+
+      <p class="about-text"><strong>Journey so far</strong><br>
+        • Born &amp; grew up in Indiana.<br>
+        • Graduated from Purdue University in 2012.<br>
+        • Interned at Raytheon and Microsoft.<br>
+        • Joined Microsoft full-time.
+      </p>
+
+      <p class="about-text"><strong>Beyond code</strong><br>
+        I'm a lifelong theater techy, I've mixed sound &amp; designed lighting for 30+ productions. I also tinker with hardware, make video games, explore quantum physics rabbit holes, and chase after three energetic kids.
+      </p>
+
+      <p class="about-text" style="margin-bottom: 2px;"><strong>Featured in</strong>
+      <ul class="interviews" style="margin-bottom: 1.4rem">
+        <li><span><a href="https://www.allaboutbambu.com/2025/02/09/octoeverywhere-developer-interview/" target="_blank">(2025) All About Bambu - Developer Interview</a></span></li>
+        <li><span><a href="https://www.youtube.com/watch?v=-jz3wgQa6M4" target="_blank">(2023) The Infill Podcast</a></span></li>
+        <li><span><a href="https://hanselminutes.com/845/3d-printers-work-everywhere-with-octoeverywhere-and-quinn-damerell" target="_blank">(2022) The Hanselminutes podcast</a></span></li>
+        <li><span><a href="https://blogs.technet.com/b/student/archive/2012/12/19/meet-microsoft-developer-quinn-damerell.aspx" target="_blank">(2012) Microsoft Student - Meet Microsoft Developer</a></span></li>
+        <li><span><a href="https://conversations.nokia.com/2012/07/23/quinn-damerell-app-developer-bringing-home-the-baconit/" target="_blank">(2012) Conversations by Nokia - App developer of Baconit</a></span></li>
+        <li><span><a href="https://windowsteamblog.com/windows_phone/b/windowsphone/archive/2012/03/22/crowning-the-big-app-on-campus-meet-4-fantastic-student-made-apps.aspx" target="_blank">(2012) "Big App on Campus" Winners - Windows Phone Blog</a></span></li>
+        <li><span><a href="https://winsource.com/2012/04/12/winsource-interview-quinn-damerell-of-baconit/" target="_blank">(2012) WinSource Interview - Baconit</a></span></li>
+      </ul>
+
+    <p class="about-text" style="margin-bottom: 2px;"><strong>Awards</strong>
+        <ul class="interviews">
+        <li><span><a href="http://windowsteamblog.com/windows_phone/b/windowsphone/archive/2012/03/22/crowning-the-big-app-on-campus-meet-4-fantastic-student-made-apps.aspx" target="_blank">People's Choice Award in Microsoft's Big App On Campus</a></span></li>
+        <li><span><a href="#" target="_blank">1st Place in ACM Google Coding Competition</a></span></li>
+        <li><span><a href="#" target="_blank">Top 5 team in State Farm's Coding Competition</a></span></li>
+      </ul>
+    </p>
+
+    </section>
   </main>
 
-  <!-- === Starfield + Galaxy Script === -->
+  <!-- === Starfield, Galaxy, and Panel Logic === -->
   <script>
-    const canvas = document.getElementById("starfield");
-    const ctx = canvas.getContext("2d");
-
+    ////////////////////////////////////////////////////////////////////////////
+    // Starfield & Galaxy background
+    ////////////////////////////////////////////////////////////////////////////
+    const canvas   = document.getElementById("starfield");
+    const ctx      = canvas.getContext("2d");
     let width, height, stars;
 
-    /** Resize canvas to full‑viewport */
-    function resize() {
-      width = canvas.width = window.innerWidth;
+    function resizeCanvas() {
+      width  = canvas.width  = window.innerWidth;
       height = canvas.height = window.innerHeight;
     }
 
-    /** Create initial star set & kick off loop */
-    function init(isResize = false) {
-      resize();
-      // ~one star per 6k px², up to 800
-      const count = Math.min(800, Math.floor((width * height) / 6000));
-      stars = Array.from({ length: count }, createStar);
-      // Only animate if not resizing, so we don't get more than one requestAnimationFrame callback.
-      if(!isResize)
-      {
-        animate();
-      }
-    }
-
-    /** Star factory */
     function createStar() {
       return {
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 1.5 + 0.3,
-        speed: Math.random() * 0.08 + 0.02, // 0.02 – 0.10 (slower)
-        alpha: Math.random() * 0.7 + 0.25,
-        flicker: Math.random() * 0.004 + 0.001,
-        hue: Math.random() * 60 + 180,      // 180 – 240 (blue‑purple)
-        hueShift: (Math.random() - 0.5) * 0.05 // subtle hue drift
+        r: Math.random() * 1.5 + 0.3,
+        spd: Math.random() * 0.20 + 0.02,
+        a:  Math.random() * 0.8  + 0.25,
+        flick: Math.random() * 0.004 + 0.001,
+        hue: Math.random() * 60 + 180,
+        hueShift: (Math.random() - 0.5) * 0.05
       };
     }
 
-    /** Draw a soft galaxy gradient behind stars */
+    function initStarfield(skipAnim) {
+      resizeCanvas();
+      const count = Math.min(800, Math.floor((width * height) / 6000));
+      stars = Array.from({ length: count }, createStar);
+      if (!skipAnim) requestAnimationFrame(loop);
+    }
+
     function drawGalaxy() {
-      // Clear
       ctx.fillStyle = "rgba(0,0,0,1)";
       ctx.fillRect(0, 0, width, height);
 
-      // Big radial gradient (galaxy core)
-      const cx = width * 0.7;
-      const cy = height * 0.43;
-      const maxR = Math.min(width, height) * 0.8;
-      const g1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-      g1.addColorStop(0, "rgba(0,0,0,0.00)");
-      g1.addColorStop(0.15, "rgba(141,138,255,0.35)");
-      g1.addColorStop(0.45, "rgba(100,0,255,0.07)");
-      g1.addColorStop(1, "rgba(0,0,20,0)");
-      ctx.fillStyle = g1;
+      const cx = width * 0.7,
+            cy = height * 0.43,
+            maxR = Math.min(width, height) * 0.8;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+      g.addColorStop(0,    "rgba(0,0,0,0)");
+      g.addColorStop(0.15, "rgba(141,138,255,0.35)");
+      g.addColorStop(0.45, "rgba(100,0,255,0.07)");
+      g.addColorStop(1,    "rgba(0,0,20,0)");
+      ctx.fillStyle = g;
       ctx.globalCompositeOperation = "lighter";
       ctx.fillRect(0, 0, width, height);
       ctx.globalCompositeOperation = "source-over";
     }
 
-    /** Draw individual star */
     function drawStar(s) {
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${s.hue}, 80%, 85%, ${s.alpha})`;
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, 80%, 85%, ${s.a})`;
       ctx.fill();
     }
 
-    /** Update star position & appearance */
     function updateStar(s) {
-      s.y -= s.speed;
-      if (s.y < -s.radius) {
-        s.y = height + s.radius;
-        s.x = Math.random() * width;
-      }
-      // Flicker
-      s.alpha += (Math.random() - 0.5) * s.flicker;
-      s.alpha = Math.max(0.15, Math.min(1, s.alpha));
-      // Gentle hue drift
+      s.y -= s.spd;
+      if (s.y < -s.r) { s.y = height + s.r; s.x = Math.random() * width; }
+      s.a += (Math.random() - 0.5) * s.flick;
+      s.a = Math.max(0.15, Math.min(1, s.a));
       s.hue += s.hueShift;
-      if (s.hue < 0) s.hue += 360;
+      if (s.hue < 0)   s.hue += 360;
       if (s.hue > 360) s.hue -= 360;
     }
 
-    /** Animation loop */
-    function animate() {
+    function loop() {
       drawGalaxy();
-      for (const s of stars) {
-        updateStar(s);
-        drawStar(s);
-      }
-      requestAnimationFrame(animate);
+      for (const s of stars) { updateStar(s); drawStar(s); }
+      requestAnimationFrame(loop);
     }
 
-    // Handle viewport resize
-    window.addEventListener("resize", () => {
-      init(true);
+    window.addEventListener("resize", () => initStarfield(true));
+    initStarfield(false);
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Card toggle with blur/fade animation
+    ////////////////////////////////////////////////////////////////////////////
+    const homeCard   = document.getElementById("homeCard");
+    const aboutCard  = document.getElementById("aboutCard");
+    const aboutLink  = document.getElementById("aboutLink");
+    const closeAbout = document.getElementById("closeAbout");
+
+    function fadeOut(card, callback) {
+      card.classList.add("fade-out");
+      card.addEventListener("animationend", () => {
+        card.classList.remove("fade-out");
+        card.style.display = "none";
+        callback();
+      }, { once: true });
+    }
+
+    function fadeIn(card) {
+      card.style.display = "block";
+      card.classList.add("fade-in");
+      card.addEventListener("animationend", () => card.classList.remove("fade-in"), { once: true });
+    }
+
+    aboutLink.addEventListener("click", e => {
+      e.preventDefault();
+      fadeOut(homeCard, () => fadeIn(aboutCard));
     });
 
-    // Bootstrap
-    init();
+    closeAbout.addEventListener("click", () => {
+      fadeOut(aboutCard, () => fadeIn(homeCard));
+    });
   </script>
 </body>
 </html>
