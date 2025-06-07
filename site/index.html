@@ -71,7 +71,7 @@
 
     /* Social links */
     /* We use space-between and the max width to ensure nice spacing on mobile */
-    .social { display: flex; flex-wrap: wrap; margin-bottom: 7px; justify-content: space-between; max-width: 387px; margin-right:5px; }
+    .social { display: flex; flex-wrap: wrap; margin-bottom: 7px; justify-content: space-between; max-width: 310px; margin-right:5px; }
     .social a {
       color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
     }
@@ -139,6 +139,10 @@
       .social { font-size: 0.95rem; gap: 0.5rem; }
     }
 
+    .svgFilter {
+      filter: invert(56%) sepia(100%) saturate(326%) hue-rotate(189deg) brightness(105%) contrast(102%);
+    }
+
   </style>
 </head>
 <body>
@@ -156,9 +160,13 @@
       <div class="social">
         <a href="#" id="aboutLink" aria-label="About Quinn">About&nbsp;Me</a>
         <a href="https://projects.quinn.space" aria-label="Projects">Projects</a>
-        <a href="https://bsky.app/profile/quinndamerell.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">Bluesky</a>
+        <!-- <a href="https://bsky.app/profile/quinndamerell.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">Bluesky</a> -->
         <a href="https://github.com/QuinnDamerell" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-        <a href="https://www.linkedin.com/in/quinndamerell" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/quinndamerell" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> 
+        <!-- <img src="./img/github.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;">
+        <img src="./img/bluesky.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;">
+        <img src="./img/linkedin.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;"> -->
+
       </div>
     </section>
 
