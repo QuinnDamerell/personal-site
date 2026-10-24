@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quinn Damerell</title>
+  <meta name="description" content="We've got magic to do. Meet Quinn Damerell: Minecraft engineer and founder of OctoEverywhere and Homeway." />
+  <meta name="author" content="Quinn Damerell" />
+  <meta property="og:title" content="Quinn Damerell" />
+  <meta property="og:description" content="We've got magic to do." />
+  <meta property="og:logo" content="https://quinn.space/img/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quinn.space" />
+  <meta property="og:site_name" content="Quinn Damerell" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HY33DGEY4B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HY33DGEY4B');
+  </script>
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+    _paq.push(["setCookieDomain", "*.quinn.space"]);
+    _paq.push(['setDomains', '*.quinn.space']);
+    _paq.push(["setCampaignNameKey", "source"]);
+    _paq.push(["setExcludedQueryParams", ["account","accountnum","address","address1","address2","address3","addressline1","addressline2","adres","adresse","age","alter","auth","authpw","bic","billingaddress","billingaddress1","billingaddress2","calle","cardnumber","cc","ccc","cccsc","cccvc","cccvv","ccexpiry","ccexpmonth","ccexpyear","ccname","ccnumber","cctype","cell","cellphone","city","clientid","clientsecret","company","consumerkey","consumersecret","contrasenya","contrase\u00f1a","creditcard","creditcardnumber","cvc","cvv","dateofbirth","debitcard","direcci\u00f3n","dob","domain","ebost","email","emailaddress","emailadresse","epos","epost","eposta","exp","familyname","firma","firstname","formlogin","fullname","gender","geschlecht","gst","gstnumber","handynummer","has\u0142o","heslo","iban","ibanaccountnum","ibanaccountnumber","id","identifier","indirizzo","kartakredytowa","kennwort","keyconsumerkey","keyconsumersecret","konto","kontonr","kontonummer","kredietkaart","kreditkarte","kreditkort","lastname","login","mail","mobiili","mobile","mobilne","nachname","name","nickname","false","osoite","parole","pass","passord","password","passwort","pasword","paswort","paword","phone","pin","plz","postalcode","postcode","postleitzahl","privatekey","publickey","pw","pwd","pword","pwrd","rue","secret","secretq","secretquestion","shippingaddress","shippingaddress1","shippingaddress2","socialsec","socialsecuritynumber","socsec","sokak","ssn","steuernummer","strasse","street","surname","swift","tax","taxnumber","tel","telefon","telefonnr","telefonnummer","telefono","telephone","token","token_auth","tokenauth","t\u00e9l\u00e9phone","ulica","user","username","vat","vatnumber","via","vorname","wachtwoord","wagwoord","webhooksecret","website","zip","zipcode","source"]]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//oe-users.octoeverywhere.com/";
+      _paq.push(['setTrackerUrl', u+'user.php']);
+      _paq.push(['setSiteId', '2']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'user.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <style>
+    :root {
+      --accent: #8ab4ff;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%; width: 100%; font-family: "Inter", sans-serif;
+      color: #ffffff; background: #000; overflow: hidden;
+    }
+
+    /* === Starfield Canvas === */
+    #starfield {
+      position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
+      animation: starfieldReveal 1.8s cubic-bezier(.16,1,.3,1) backwards;
+    }
+
+    /* === Main layout === */
+    .main {
+      position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center;
+    }
+    /* Animate the card itself so its backdrop blur can always reach the sky. */
+    .intro {
+      animation: cardReveal 1.1s cubic-bezier(.16,1,.3,1) 0.6s backwards;
+    }
+
+    /* A one-time entrance: the sky appears, then the card comes into focus. */
+    @keyframes starfieldReveal {
+      from { opacity: 0; transform: scale(1.035); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(14px) scale(0.985); filter: blur(5px); }
+      to   { opacity: 1; transform: none; filter: blur(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #starfield, .intro { animation: none; }
+    }
+
+    /* Shared card styles */
+    .card {
+      max-width: 560px; width: 100%; margin: 1rem; padding: 3rem 2.25rem;
+      backdrop-filter: blur(24px) saturate(160%); background: var(--glass-bg);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.5);
+      opacity: 1; filter: blur(0); transform-origin: center;
+    }
+
+
+    /* Fade + blur keyframes */
+    @keyframes fadeOutBlur {
+      0%   { opacity: 1; filter: blur(0px);   transform: scale(1); }
+      100% { opacity: 0; filter: blur(12px);  transform: scale(0.96); }
+    }
+    @keyframes fadeInBlur {
+      0%   { opacity: 0; filter: blur(12px);  transform: scale(1.04); }
+      100% { opacity: 1; filter: blur(0px);   transform: scale(1); }
+    }
+    .fade-out { animation: fadeOutBlur 0.45s cubic-bezier(.4,.0,.2,1) forwards; }
+    .fade-in  { animation: fadeInBlur 0.45s cubic-bezier(.4,.0,.2,1) forwards; }
+
+    /* Typography tweaks */
+    .name      { font-size: 2.6rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .motto     { font-size: 1.15rem; font-style: italic; font-weight: 300; color: var(--accent); margin-bottom: 1.4rem; }
+    .role      { font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; }
+    .founder   { font-size: 1.15rem; margin-bottom: 2rem; line-height: 1.4; }
+
+    /* Social links */
+    /* We use space-between and the max width to ensure nice spacing on mobile */
+    .social { display: flex; flex-wrap: wrap; margin-bottom: 7px; justify-content: space-between; max-width: 290px; margin-right:5px; }
+    .social a {
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
+    }
+    .social a:hover { color: #ffffff; }
+
+    /* About‑card content */
+    .about-heading { font-size: 2.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .about-subheading { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .about-text    { font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.4rem; }
+    .about-text a {
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
+    }
+    .about-archive { border-top: 1px solid var(--glass-border); font-size: 1rem; line-height: 1.6; }
+    .about-archive summary { padding: 0.75rem 0; cursor: pointer; color: var(--accent); font-weight: 600; }
+    .about-archive summary:hover { color: #ffffff; }
+    .about-archive summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
+    .interviews    { padding-left: 1.25rem; margin-bottom: 1rem; }
+    .interviews li { margin-bottom: 0.5rem; }
+    .interviews a {
+      color: var(--accent); text-decoration: none; font-weight: 400; transition: color 0.2s ease;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute; top: 18px; right: 22px; font-size: 1.8rem; line-height: 1;
+      background: transparent; border: none; color: var(--accent); cursor: pointer; transition: color 0.2s ease;
+    }
+    .close-btn:hover { color: #ffffff; }
+
+    /* Custom scroll‑bar to match the theme */
+    /* Chrome, Edge, Safari */
+    #aboutCard::-webkit-scrollbar {
+      width: 8px;
+    }
+    #aboutCard::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #aboutCard::-webkit-scrollbar-thumb {
+      background: #435e89;
+      border-radius: 4px;
+    }
+    #aboutCard::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+
+    #aboutCard {
+        /* This allows the card to stay the height of the content, but still scroll when the view port is too small */
+        max-height: calc(100vh - 2rem);
+        scrollbar-width: thin;
+        scrollbar-color: #435e89 transparent;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+    }
+    /* Fix for safari to make 100vh not go behind the elements. */
+    @supports (-webkit-touch-callout: none) {
+      #aboutCard {
+        /* The hack for Safari */
+        max-height: -webkit-fill-available;
+      }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 560px) {
+      .card { padding: 1.2rem 1rem; }
+      .role, .founder { font-size: 1rem; }
+    }
+    @media (max-width: 460px) {
+      .role, .founder { font-size: 0.95rem; }
+      .social { font-size: 0.85rem; gap: 0.5rem; }
+    }
+
+    .svgFilter {
+      filter: invert(56%) sepia(100%) saturate(326%) hue-rotate(189deg) brightness(105%) contrast(102%);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Starfield Background Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <main class="main">
+    <!-- ===== Home Card ===== -->
+    <section class="card intro" id="homeCard">
+      <h1 class="name">Quinn Damerell</h1>
+      <p class="motto">We've got magic to do.</p>
+      <p class="role">Senior Software Engineer at Minecraft</p>
+      <p class="founder">Founder of OctoEverywhere and Homeway</p>
+
+      <div class="social">
+        <a href="#" id="aboutLink" aria-label="About Quinn">About&nbsp;me</a>
+        <a href="https://projects.quinn.space" aria-label="Projects">Projects</a>
+        <!-- <a href="https://bsky.app/profile/quinndamerell.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky">Bluesky</a> -->
+        <a href="https://github.com/QuinnDamerell" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/quinndamerell" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> 
+        <!-- <img src="./img/github.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;">
+        <img src="./img/bluesky.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;">
+        <img src="./img/linkedin.svg" class="svgFilter" alt="LinkedIn Logo" style="width: 20px; height: 20px; vertical-align: middle;"> -->
+
+      </div>
+    </section>
+
+    <!-- ===== About‑Me Card ===== -->
+    <section class="card" id="aboutCard" style="display:none; position:relative;">
+      <button class="close-btn" id="closeAbout" aria-label="Back to home">&times;</button>
+      <h2 class="about-heading">About me</h2>
+
+      <p class="about-text">
+        I'm a Seattle-based network engineer on Minecraft. After hours, I build projects and communities that spark makers' imaginations around the world.
+      </p>
+
+      <h3 class="about-subheading">The journey so far</h3>
+      <p class="about-text">
+        Born and raised in Indiana, I graduated from Purdue University and interned at Raytheon and Microsoft before joining Microsoft full-time. Then I founded OctoEverywhere and Homeway.
+      </p>
+
+      <h3 class="about-subheading">Beyond code</h3>
+      <p class="about-text">
+        I'm a dad to three whimsical kids, married to a remarkable woman, and a lifelong learner. AI, quantum computing, and the complexities of physics keep me curious.
+      </p>
+
+      <p class="about-text">
+        <a href="https://projects.quinn.space" target="_blank" rel="noopener">Wander through my project timeline</a>, including OctoEverywhere, Homeway, and more.
+      </p>
+
+      <details class="about-archive">
+        <summary>Interviews &amp; features</summary>
+        <ul class="interviews">
+          <li><a href="https://projects.quinn.space/media/allaboutbambu-octoeverywhere-2025/" target="_blank" rel="noopener">2025 · All About Bambu: developer interview</a></li>
+          <li><a href="https://projects.quinn.space/media/youtube-next-layer-octoeverywhere-2023/" target="_blank" rel="noopener">2023 · The Infill Podcast</a></li>
+          <li><a href="https://projects.quinn.space/media/hanselminutes-octoeverywhere-2022/" target="_blank" rel="noopener">2022 · The Hanselminutes podcast</a></li>
+          <li><a href="https://projects.quinn.space/media/microsoft-student-blog-2012/" target="_blank" rel="noopener">2012 · Microsoft Student: meet a Microsoft developer</a></li>
+          <li><a href="https://projects.quinn.space/media/windows-blog-baconit-2012/" target="_blank" rel="noopener">2012 · Conversations by Nokia: Baconit developer interview</a></li>
+          <li><a href="https://projects.quinn.space/media/windows-phone-blog-big-app-on-campus-2012/" target="_blank" rel="noopener">2012 · Windows Phone Blog: “Big App on Campus” winners</a></li>
+          <li><a href="https://projects.quinn.space/media/winsource-baconit-2012/" target="_blank" rel="noopener">2012 · WinSource: Baconit interview</a></li>
+        </ul>
+      </details>
+
+      <details class="about-archive">
+        <summary>Awards</summary>
+        <ul class="interviews">
+          <li>Extraordinary Dad (self-awarded)</li>
+          <li><a href="https://projects.quinn.space/media/windows-phone-blog-big-app-on-campus-2012/" target="_blank" rel="noopener">People's Choice Award, Microsoft's Big App on Campus</a></li>
+          <li>1st place, ACM Google Coding Competition</li>
+          <li>Top 5 team, State Farm's Coding Competition</li>
+        </ul>
+      </details>
+
+    </section>
+  </main>
+
+  <!-- === Starfield, Galaxy, and Panel Logic === -->
+  <script>
+    ////////////////////////////////////////////////////////////////////////////
+    // Starfield & Galaxy background
+    ////////////////////////////////////////////////////////////////////////////
+    const canvas   = document.getElementById("starfield");
+    const ctx      = canvas.getContext("2d");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let width, height, stars;
+    let animationFrame = null, lastFrame = null, skyTime = 0;
+    let shootingStar = null, nextShootingStar = 8 + Math.random() * 5;
+
+    function resizeCanvas() {
+      width  = canvas.width  = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    function createStar() {
+      const depth = Math.random();
+      const baseAlpha = 0.3 + depth * 0.35 + Math.random() * 0.25;
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: depth * 1.5 + 0.3,
+        // Nearer stars drift a little faster; speeds are pixels per second.
+        spd: depth * 7.5 + 0.75,
+        a: baseAlpha, baseAlpha,
+        twinkle: 0.04 + Math.random() * 0.04,
+        phase: Math.random() * Math.PI * 2,
+        frequency: Math.PI * 2 / (5 + Math.random() * 7),
+        glow: depth > 0.8 && Math.random() < 0.4,
+        hue: Math.random() * 60 + 180,
+        hueShift: (Math.random() - 0.5) * 3
+      };
+    }
+
+    function initStarfield() {
+      resizeCanvas();
+      const count = Math.min(800, Math.floor((width * height) / 6000));
+      stars = Array.from({ length: count }, createStar);
+      shootingStar = null;
+      startStarfield();
+    }
+
+    function drawGalaxy() {
+      ctx.fillStyle = "rgba(0,0,0,1)";
+      ctx.fillRect(0, 0, width, height);
+
+      const cx = width * 0.7,
+            cy = height * 0.43,
+            maxR = Math.min(width, height) * 0.8;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+      g.addColorStop(0,    "rgba(0,0,0,0)");
+      g.addColorStop(0.15, "rgba(141,138,255,0.35)");
+      g.addColorStop(0.45, "rgba(100,0,255,0.07)");
+      g.addColorStop(1,    "rgba(0,0,20,0)");
+      ctx.fillStyle = g;
+      ctx.globalCompositeOperation = "lighter";
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function drawStar(s) {
+      // A soft halo on just a few nearby stars adds depth without a glitter effect.
+      if (s.glow) {
+        const halo = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+        halo.addColorStop(0, `hsla(${s.hue}, 80%, 85%, ${s.a * 0.18})`);
+        halo.addColorStop(1, `hsla(${s.hue}, 80%, 85%, 0)`);
+        ctx.fillStyle = halo;
+        ctx.fillRect(s.x - s.r * 4, s.y - s.r * 4, s.r * 8, s.r * 8);
+      }
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, 80%, 85%, ${s.a})`;
+      ctx.fill();
+    }
+
+    function updateStar(s, dt) {
+      s.y -= s.spd * dt;
+      if (s.y < -s.r) { s.y = height + s.r; s.x = Math.random() * width; }
+      s.a = s.baseAlpha + Math.sin(skyTime * s.frequency + s.phase) * s.twinkle;
+      s.hue = (s.hue + s.hueShift * dt + 360) % 360;
+    }
+
+    function drawShootingStar() {
+      if (!shootingStar && skyTime >= nextShootingStar) {
+        shootingStar = {
+          x: width * (0.12 + Math.random() * 0.45),
+          y: height * (0.06 + Math.random() * 0.16),
+          distance: Math.min(width * 0.32, 220),
+          tail: Math.min(width * 0.15, 85),
+          duration: 1.6 + Math.random() * 0.6,
+          start: skyTime
+        };
+      }
+      if (!shootingStar) return;
+      const s = shootingStar;
+      const progress = (skyTime - s.start) / s.duration;
+      if (progress >= 1) {
+        shootingStar = null;
+        nextShootingStar = skyTime + 18 + Math.random() * 12;
+        return;
+      }
+
+      // A brief, faint streak in the upper sky, fading smoothly at both ends.
+      const x = s.x + progress * s.distance;
+      const y = s.y + progress * s.distance * 0.45;
+      const tail = s.tail * Math.sin(progress * Math.PI);
+      const alpha = Math.sin(progress * Math.PI) * 0.24;
+      const trail = ctx.createLinearGradient(x - tail, y - tail * 0.45, x, y);
+      trail.addColorStop(0, "rgba(160,195,255,0)");
+      trail.addColorStop(1, `rgba(210,225,255,${alpha})`);
+      ctx.beginPath();
+      ctx.moveTo(x - tail, y - tail * 0.45);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = trail;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    function loop(timestamp) {
+      animationFrame = null;
+      // Keep the same calm pace on high-refresh screens and after tab switches.
+      const dt = lastFrame === null ? 0 : Math.min((timestamp - lastFrame) / 1000, 0.05);
+      lastFrame = timestamp;
+      if (!reducedMotion.matches) skyTime += dt;
+      drawGalaxy();
+      for (const s of stars) {
+        if (!reducedMotion.matches) updateStar(s, dt);
+        drawStar(s);
+      }
+      if (!reducedMotion.matches) {
+        drawShootingStar();
+        animationFrame = requestAnimationFrame(loop);
+      }
+    }
+
+    function startStarfield() {
+      if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+      lastFrame = null;
+      loop(performance.now());
+    }
+
+    window.addEventListener("resize", initStarfield);
+    reducedMotion.addEventListener("change", () => {
+      shootingStar = null;
+      nextShootingStar = skyTime + 8 + Math.random() * 5;
+      startStarfield();
+    });
+    initStarfield();
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Card toggle with blur/fade animation
+    ////////////////////////////////////////////////////////////////////////////
+    const homeCard   = document.getElementById("homeCard");
+    const aboutCard  = document.getElementById("aboutCard");
+    const aboutLink  = document.getElementById("aboutLink");
+    const closeAbout = document.getElementById("closeAbout");
+
+    homeCard.addEventListener("animationend", event => {
+      if (event.target === homeCard && event.animationName === "cardReveal") {
+        homeCard.classList.remove("intro");
+      }
+    }, { once: true });
+
+    function fadeOut(card, callback) {
+      card.classList.remove("intro");
+      card.classList.add("fade-out");
+      card.addEventListener("animationend", function finishFadeOut(event) {
+        if (event.target !== card || event.animationName !== "fadeOutBlur") return;
+        card.removeEventListener("animationend", finishFadeOut);
+        card.classList.remove("fade-out");
+        card.style.display = "none";
+        callback();
+      });
+    }
+
+    function fadeIn(card) {
+      card.style.display = "block";
+      card.classList.add("fade-in");
+      card.addEventListener("animationend", function finishFadeIn(event) {
+        if (event.target !== card || event.animationName !== "fadeInBlur") return;
+        card.removeEventListener("animationend", finishFadeIn);
+        card.classList.remove("fade-in");
+      });
+    }
+
+    aboutLink.addEventListener("click", e => {
+      e.preventDefault();
+      fadeOut(homeCard, () => fadeIn(aboutCard));
+    });
+
+    closeAbout.addEventListener("click", () => {
+      fadeOut(aboutCard, () => fadeIn(homeCard));
+    });
+  </script>
+</body>
+</html>
